@@ -1,6 +1,6 @@
 @using CursoOnline.Dominio.Cursos
 @using CursoOnline.Web.Util
-@model CursoOnline.Web.Util.PaginatedList<CursoParaListagem>
+@model CursoOnline.Web.Util.PaginatedList<CursoDto>
 @{
     ViewData["Title"] = "Cursos";
 }
@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a href="/Curso/Novo" class="btn btn-primary">Voltar</a>
+            <a href="/Curso/Novo" class="btn btn-primary">Novo</a>
         </div>
     </div>
     <div class="row">

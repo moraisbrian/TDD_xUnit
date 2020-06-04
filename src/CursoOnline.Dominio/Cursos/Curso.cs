@@ -5,6 +5,9 @@ namespace CursoOnline.Dominio.Cursos
 {
     public class Curso : Entidade
     {
+        // Para EF
+        private Curso() {}
+
         public Curso(string nome, string descricao, double cargaHoraria, EPublicoAlvo publicoAlvo, double valor)
         {
             if (string.IsNullOrEmpty(nome))
