@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CursoOnline.Dominio.Base;
 using CursoOnline.Ioc;
+using CursoOnline.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,7 +27,10 @@ namespace CursoOnline.Web
         public void ConfigureServices(IServiceCollection services)
         {
             StartupIoc.ConfigureServices(services, Configuration["ConnectionString"]);
-            services.AddControllersWithViews();
+            
+            services.AddControllersWithViews(config => {
+                config.Filters.Add(typeof(CustomExceptionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
