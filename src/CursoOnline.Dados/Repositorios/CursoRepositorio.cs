@@ -20,7 +20,7 @@ namespace CursoOnline.Dados.Repositorios
 
         public void Armazenar(Curso curso)
         {
-            throw new System.NotImplementedException();
+            Context.Set<Curso>().Add(curso);
         }
     }
 }
