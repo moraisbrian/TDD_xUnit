@@ -19,11 +19,10 @@
             <form id="form" class="form-horizontal" 
             asp-action="Salvar" 
             asp-controller="Curso" 
-            asp-anti-forgery
             data-ajax="true"
             data-ajax-method="POST"
             data-ajax-failure="formQuandoFalha"
-            data-ajax-success="window.location.href = '/'">
+            data-ajax-success="window.location = '/'">
                 <div class="form-group">
                     <label class="col-md-2 control-label">Nome</label>
                     <div class="col-md-8">

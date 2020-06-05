@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^4.0.2",
     "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
   }
 }

@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/tests/CursoOnline.DominioTest/bin/Debug/netcoreapp3.1/CursoOnline.DominioTest.dll",
+            "program": "${workspaceFolder}/src/CursoOnline.Web/bin/Debug/netcoreapp3.1/CursoOnline.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/tests/CursoOnline.DominioTest",
+            "cwd": "${workspaceFolder}/src/CursoOnline.Web",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
