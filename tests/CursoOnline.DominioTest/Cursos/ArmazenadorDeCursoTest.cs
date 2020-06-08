@@ -5,6 +5,7 @@ using Bogus;
 using CursoOnline.Dominio.Cursos;
 using CursoOnline.DominioTest.Util;
 using CursoOnline.DominioTest.Builders;
+using CursoOnline.Dominio.Base;
 
 namespace CursoOnline.DominioTest.Cursos
 {
@@ -13,18 +14,19 @@ namespace CursoOnline.DominioTest.Cursos
         private readonly CursoDto _cursoDto;
         private readonly ArmazenadorDeCurso _armazenadorDeCurso;
         private readonly Mock<ICursoRepositorio> _mock;
+        private readonly Faker _faker;
 
         public ArmazenadorDeCursoTest()
         {
-            Faker faker = new Faker();
+            _faker = new Faker();
 
             _cursoDto = new CursoDto
             {
-                Nome = faker.Random.Word(),
-                Descricao = faker.Lorem.Paragraph(),
-                CargaHoraria = faker.Random.Double(50, 1000),
+                Nome = _faker.Random.Word(),
+                Descricao = _faker.Lorem.Paragraph(),
+                CargaHoraria = _faker.Random.Double(50, 1000),
                 PublicoAlvo = "Estudante",
-                Valor = faker.Random.Double(500, 1000)
+                Valor = _faker.Random.Double(500, 1000)
             };
 
             _mock = new Mock<ICursoRepositorio>();
@@ -54,10 +56,10 @@ namespace CursoOnline.DominioTest.Cursos
             string publicoAlvoInvalido = "Médico";
             _cursoDto.PublicoAlvo = publicoAlvoInvalido;
 
-            Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ExcecaoDeDominio>(() => 
                 _armazenadorDeCurso.Armazenar(_cursoDto)
             )
-            .ComMensagem("Publico alvo inválido");
+            .ComMensagem(Resource.PublicoAlvoInvalido);
         }
 
         [Fact]
@@ -67,10 +69,36 @@ namespace CursoOnline.DominioTest.Cursos
 
             _mock.Setup(r => r.ObterPeloNome(_cursoDto.Nome)).Returns(cursoJaSalvo);
 
-            Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ExcecaoDeDominio>(() => 
                 _armazenadorDeCurso.Armazenar(_cursoDto)
             )
-            .ComMensagem("Nome do curso já consta no banco de dados");
+            .ComMensagem(Resource.NomeDeCursoExistente);
+        }
+
+        [Fact]
+        public void DeveAlterarDadosDoCurso()
+        {
+            _cursoDto.Id = _faker.Random.Int(1, 1000);
+            var curso = CursoBuilder.Novo().Build();
+            _mock.Setup(r => r.ObterPorId(_cursoDto.Id)).Returns(curso);
+
+            _armazenadorDeCurso.Armazenar(_cursoDto);
+
+            Assert.Equal(_cursoDto.Nome, curso.Nome);
+            Assert.Equal(_cursoDto.Valor, curso.Valor);
+            Assert.Equal(_cursoDto.CargaHoraria, curso.CargaHoraria);
+        }
+
+        [Fact]
+        public void NaoDeveAdicionarNoRepositorioQuandoCursoJaExiste()
+        {
+            _cursoDto.Id = _faker.Random.Int(1, 1000);
+            var curso = CursoBuilder.Novo().Build();
+            _mock.Setup(r => r.ObterPorId(_cursoDto.Id)).Returns(curso);
+
+            _armazenadorDeCurso.Armazenar(_cursoDto);
+
+            _mock.Verify(r => r.Armazenar(It.IsAny<Curso>()), Times.Never);
         }
     }
 }
