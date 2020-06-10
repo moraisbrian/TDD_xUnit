@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using CursoOnline.Dominio.Base;
 using CursoOnline.Dominio.Cursos;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace CursoOnline.Api.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class CursoController : ControllerBase
     {
         private readonly ArmazenadorDeCurso _armazenadorDeCurso;
@@ -22,35 +24,37 @@ namespace CursoOnline.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/Cursos")]
         public List<Curso> Index()
         {
             var cursos = _cursoRepositorio.Consultar();
-
+            
             if (cursos.Any())
-                return cursos;
+            {
+                if (cursos.Any())
+                    return cursos;
+            }
 
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.NoContent;
             return new List<Curso>();
         }
 
         [HttpPost]
-        [Route("api/Cursos")]
         public IActionResult Salvar(CursoDto model)
         {
             try
             {
                 _armazenadorDeCurso.Armazenar(model);
-                return Ok();
+                return Created("body", model);
             }
             catch
             {
                 return BadRequest();
             }
-            
+
         }
 
         [HttpPut]
-        [Route("api/Cursos/{id}")]
+        [Route("{id}")]
         public IActionResult Editar(int id, CursoDto cursoDto)
         {
             var curso = _cursoRepositorio.ObterPorId(id);
