@@ -1,4 +1,3 @@
-using System;
 using CursoOnline.Dominio.Base;
 
 namespace CursoOnline.Dominio.Cursos

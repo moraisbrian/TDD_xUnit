@@ -14,5 +14,9 @@ namespace CursoOnline.Dominio.Base
         // ArmazenadorDeCurso
         public static readonly string PublicoAlvoInvalido = "Publico alvo inválido";
         public static readonly string NomeDeCursoExistente = "Nome do curso já consta no banco de dados";
+
+        // Aluno
+        public static readonly string CpfInvalido = "CPF inválido";
+        public static readonly string EmailInvalido = "E-mail inválido";
     }
 }
