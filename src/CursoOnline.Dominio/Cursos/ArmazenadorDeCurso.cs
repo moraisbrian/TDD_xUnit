@@ -12,7 +12,7 @@ namespace CursoOnline.Dominio.Cursos
             _cursoRepositorio = cursoRepositorio;
         }
 
-        public void Armazenar(CursoDto cursoDto)
+        public void Cadastrar(CursoDto cursoDto)
         {
             var cursoJaSalvo = _cursoRepositorio.ObterPeloNome(cursoDto.Nome);
 

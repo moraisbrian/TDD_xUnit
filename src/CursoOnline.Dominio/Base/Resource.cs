@@ -18,5 +18,8 @@ namespace CursoOnline.Dominio.Base
         // Aluno
         public static readonly string CpfInvalido = "CPF inválido";
         public static readonly string EmailInvalido = "E-mail inválido";
+
+        // ArmazenadorDeAluno
+        public static readonly string CpfJaCadastrado = "CPF já cadastrado";
     }
 }

@@ -43,7 +43,7 @@ namespace CursoOnline.Api.Controllers
         {
             try
             {
-                _armazenadorDeCurso.Armazenar(model);
+                _armazenadorDeCurso.Cadastrar(model);
                 return Created("body", model);
             }
             catch
@@ -64,7 +64,7 @@ namespace CursoOnline.Api.Controllers
                 try
                 {
                     cursoDto.Id = id;
-                    _armazenadorDeCurso.Armazenar(cursoDto);
+                    _armazenadorDeCurso.Cadastrar(cursoDto);
                     return Ok();
                 }
                 catch

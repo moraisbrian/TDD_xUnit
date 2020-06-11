@@ -45,7 +45,7 @@ namespace CursoOnline.Web.Controllers
         [HttpPost]
         public IActionResult Salvar(CursoDto model)
         {
-            _armazenadorDeCurso.Armazenar(model);
+            _armazenadorDeCurso.Cadastrar(model);
             return Redirect("Index");
         }
 

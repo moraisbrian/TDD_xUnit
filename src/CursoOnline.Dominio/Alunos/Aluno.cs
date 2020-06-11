@@ -6,6 +6,9 @@ namespace CursoOnline.Dominio.Alunos
 {
     public class Aluno : Entidade
     {
+        // Para EF
+        private Aluno() {}
+
         public Aluno(string nome, string cpf, string email, EPublicoAlvo publicoAlvo)
         {
             ValidadorDeRegra.Novo()
