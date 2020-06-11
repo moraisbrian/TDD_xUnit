@@ -1,3 +1,4 @@
+using System;
 using CursoOnline.Dominio.Alunos;
 using CursoOnline.Dominio.Cursos;
 using CursoOnline.DominioTest.Alunos;
@@ -6,6 +7,7 @@ namespace CursoOnline.DominioTest.Builders
 {
     public class AlunoBuilder
     {
+        private int _id;
         private string _nome = "Anderson";
         private string _email = "contato@contato.com";
         private string _cpf = "569.570.600-98";
@@ -40,9 +42,23 @@ namespace CursoOnline.DominioTest.Builders
             return this;
         }
 
+        public AlunoBuilder ComId(int id)
+        {
+            _id = id;
+            return this;
+        }
+
         public Aluno Build()
         {
-            return new Aluno(_nome, _cpf, _email, _publicoAlvo);
+            var aluno = new Aluno(_nome, _cpf, _email, _publicoAlvo);
+
+            if (_id > 0)
+            {
+                var propertyInfo = aluno.GetType().GetProperty("Id");
+                propertyInfo.SetValue(aluno, Convert.ChangeType(_id, propertyInfo.PropertyType), null);
+            }
+
+            return aluno;
         }
     }
 }

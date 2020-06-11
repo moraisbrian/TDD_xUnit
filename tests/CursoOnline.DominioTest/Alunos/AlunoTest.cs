@@ -6,33 +6,27 @@ using ExpectedObjects;
 using CursoOnline.DominioTest.Builders;
 using CursoOnline.DominioTest.Util;
 using CursoOnline.Dominio.Alunos;
+using Bogus.Extensions.Brazil;
 
 namespace CursoOnline.DominioTest.Alunos
 {
     public class AlunoTest
     {
         private readonly Faker _faker;
-        private readonly string _nome;
-        private readonly string _email;
 
         public AlunoTest()
         {
             _faker = new Faker();
-            _nome = _faker.Person.FullName;
-            _email = _faker.Person.Email;
         }
 
-        [Theory]
-        [InlineData("569.570.600-98")]
-        [InlineData("675.224.290-99")]
-        [InlineData("653.440.570-91")]
-        public void DeveCadastrarAluno(string cpfEsperado)
+        [Fact]
+        public void DeveCriarAluno()
         {
             var alunoEsperado = new
             {
-                Nome = _nome,
-                Cpf = cpfEsperado,
-                Email = _email,
+                Nome = _faker.Person.FullName,
+                Cpf = _faker.Person.Cpf(),
+                Email = _faker.Person.Email,
                 PublicoAlvo = EPublicoAlvo.Estudante
             };
 
@@ -49,7 +43,7 @@ namespace CursoOnline.DominioTest.Alunos
         [Theory]
         [InlineData("")]
         [InlineData(null)]
-        public void NaoDeveAlunoTerNomeInvalido(string nomeInvalido)
+        public void NaoDeveCriarAlunoComNomeInvalido(string nomeInvalido)
         {
             Assert.Throws<ExcecaoDeDominio>(() =>
                 AlunoBuilder.Novo().ComNome(nomeInvalido).Build())
@@ -61,7 +55,7 @@ namespace CursoOnline.DominioTest.Alunos
         [InlineData(null)]
         [InlineData("569.570.600-9888")]
         [InlineData("569.570")]
-        public void NaoDeveAlunoTerCpfInvalido(string cpfInvlido)
+        public void NaoDeveCriarAlunoComCpfInvalido(string cpfInvlido)
         {
             Assert.Throws<ExcecaoDeDominio>(() =>
                 AlunoBuilder.Novo().ComCpf(cpfInvlido).Build())
@@ -73,7 +67,8 @@ namespace CursoOnline.DominioTest.Alunos
         [InlineData(null)]
         [InlineData("fulano.com.br")]
         [InlineData("ciclano@")]
-        public void NaoDeveAlunoTerEmailInvalido(string emailInvalido)
+        [InlineData("email@email")]
+        public void NaoDeveCriarAlunoComEmailInvalido(string emailInvalido)
         {
             Assert.Throws<ExcecaoDeDominio>(() =>
                 AlunoBuilder.Novo().ComEmail(emailInvalido).Build())
@@ -83,13 +78,24 @@ namespace CursoOnline.DominioTest.Alunos
         [Theory]
         [InlineData("")]
         [InlineData(null)]
-        public void DeveAlterarNome(string nomeInvalido)
+        public void NaoDeveAlterarAlunoComNomeInvalido(string nomeInvalido)
         {
             var aluno = AlunoBuilder.Novo().Build();
 
             Assert.Throws<ExcecaoDeDominio>(() =>
                 aluno.AlterarNome(nomeInvalido))
             .ComMensagem(Resource.NomeInvalido);
+        }
+
+        [Fact]
+        public void DeveAlterarNomeCadastrado()
+        {
+            var nome = _faker.Person.FullName;
+            var aluno = AlunoBuilder.Novo().Build();
+
+            aluno.AlterarNome(nome);
+
+            Assert.Equal(nome, aluno.Nome);
         }
     }
 }
