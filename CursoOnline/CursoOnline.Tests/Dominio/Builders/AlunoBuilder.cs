@@ -1,9 +1,8 @@
 using System;
 using CursoOnline.Dominio.Alunos;
 using CursoOnline.Dominio.Cursos;
-using CursoOnline.DominioTest.Alunos;
 
-namespace CursoOnline.DominioTest.Builders
+namespace CursoOnline.Tests.Dominio.Builders
 {
     public class AlunoBuilder
     {

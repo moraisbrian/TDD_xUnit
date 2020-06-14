@@ -1,14 +1,14 @@
 ﻿using ExpectedObjects;
 using System;
 using Xunit;
-using CursoOnline.DominioTest.Util;
+using CursoOnline.Tests.Dominio.Util;
 using Xunit.Abstractions;
-using CursoOnline.DominioTest.Builders;
+using CursoOnline.Tests.Dominio.Builders;
 using Bogus;
 using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.Base;
 
-namespace CursoOnline.DominioTest.Cursos
+namespace CursoOnline.Tests.Dominio.Cursos
 {
     public class CursoTest : IDisposable
     {

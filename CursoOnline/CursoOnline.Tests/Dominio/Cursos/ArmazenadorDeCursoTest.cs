@@ -1,13 +1,12 @@
-using System;
 using Moq;
 using Xunit;
 using Bogus;
 using CursoOnline.Dominio.Cursos;
-using CursoOnline.DominioTest.Util;
-using CursoOnline.DominioTest.Builders;
+using CursoOnline.Tests.Dominio.Util;
+using CursoOnline.Tests.Dominio.Builders;
 using CursoOnline.Dominio.Base;
 
-namespace CursoOnline.DominioTest.Cursos
+namespace CursoOnline.Tests.Dominio.Cursos
 {
     public class ArmazenadorDeCursoTest
     {

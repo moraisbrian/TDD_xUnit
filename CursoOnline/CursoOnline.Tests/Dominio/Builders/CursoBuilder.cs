@@ -1,7 +1,7 @@
 using System;
 using CursoOnline.Dominio.Cursos;
 
-namespace CursoOnline.DominioTest.Builders
+namespace CursoOnline.Tests.Dominio.Builders
 {
     public class CursoBuilder
     {

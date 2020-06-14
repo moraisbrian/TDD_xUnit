@@ -4,10 +4,10 @@ using Xunit;
 using CursoOnline.Dominio.Alunos;
 using CursoOnline.Dominio.Base;
 using Bogus.Extensions.Brazil;
-using CursoOnline.DominioTest.Util;
-using CursoOnline.DominioTest.Builders;
+using CursoOnline.Tests.Dominio.Builders;
+using CursoOnline.Tests.Dominio.Util;
 
-namespace CursoOnline.DominioTest.Alunos
+namespace CursoOnline.Tests.Dominio.Alunos
 {
     public class ArmazenadorDeAlunoTest
     {
