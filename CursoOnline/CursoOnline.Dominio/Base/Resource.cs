@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CursoOnline.Dominio.Base
+﻿namespace CursoOnline.Dominio.Base
 {
     public static class Resource
     {
@@ -27,5 +23,10 @@ namespace CursoOnline.Dominio.Base
         public static readonly string CursoInvalido = "Curso inválido";
         public static readonly string ValorPagoInvalido = "Valor pago inválido";
         public static readonly string ValorPagoMaiorQueValorDoCurso = "Valor pago maior que valor do curso";
+        public static readonly string PublicosAlvoDiferente = "Publico alvo do aluno e curso são diferentes";
+
+        // CriacaoDaMatricula
+        public static readonly string CursoNaoEncontrado = "Curso não encontrado";
+        public static readonly string AlunoNaoEncontrado = "Aluno não encontrado";
     }
 }

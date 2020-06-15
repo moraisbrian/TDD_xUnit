@@ -6,6 +6,7 @@ using ExpectedObjects;
 using CursoOnline.Dominio.Base;
 using CursoOnline.Tests.Dominio.Util;
 using CursoOnline.Dominio.Matriculas;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Tests.Dominio.Matriculas
 {
@@ -82,6 +83,17 @@ namespace CursoOnline.Tests.Dominio.Matriculas
             var matricula = MatriculaBuilder.Novo().ComCurso(curso).ComValorPago(valorComDesconto).Build();
 
             Assert.True(matricula.TemDesconto);
+        }
+
+        [Fact]
+        public void NaoDevePublicoAlvoDeAlunoECursoSeremDiferentes()
+        {
+            var aluno = AlunoBuilder.Novo().ComPublicoAlvo(EPublicoAlvo.Universitario).Build();
+            var curso = CursoBuilder.Novo().ComPublicoAlvo(EPublicoAlvo.Empreendedor).Build();
+
+            Assert.Throws<ExcecaoDeDominio>(() => 
+                MatriculaBuilder.Novo().ComAluno(aluno).ComCurso(curso).Build())
+            .ComMensagem(Resource.PublicosAlvoDiferente);
         }
     }
 }
