@@ -1,4 +1,5 @@
 using CursoOnline.Dominio.Base;
+using CursoOnline.Dominio.PublicosAlvo;
 using System;
 
 namespace CursoOnline.Dominio.Cursos
@@ -6,10 +7,12 @@ namespace CursoOnline.Dominio.Cursos
     public class ArmazenadorDeCurso
     {
         private readonly ICursoRepositorio _cursoRepositorio;
+        private readonly IConversorDePublicoAlvo _conversorDePublicoAlvo;
 
-        public ArmazenadorDeCurso(ICursoRepositorio cursoRepositorio)
+        public ArmazenadorDeCurso(ICursoRepositorio cursoRepositorio, IConversorDePublicoAlvo conversorDePublicoAlvo)
         {
             _cursoRepositorio = cursoRepositorio;
+            _conversorDePublicoAlvo = conversorDePublicoAlvo;
         }
 
         public void Cadastrar(CursoDto cursoDto)
@@ -18,8 +21,9 @@ namespace CursoOnline.Dominio.Cursos
 
             ValidadorDeRegra.Novo()
                 .Quando(cursoJaSalvo != null && cursoJaSalvo.Id != cursoDto.Id, Resource.NomeDeCursoExistente)
-                .Quando(!Enum.TryParse<EPublicoAlvo>(cursoDto.PublicoAlvo, out var publicoAlvo), Resource.PublicoAlvoInvalido)
                 .DispararExcecaoSeExistir();
+
+            var publicoAlvo = _conversorDePublicoAlvo.Converter(cursoDto.PublicoAlvo);
 
             var curso = new Curso(
                 cursoDto.Nome,

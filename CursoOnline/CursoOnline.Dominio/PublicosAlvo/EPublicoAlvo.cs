@@ -1,4 +1,4 @@
-namespace CursoOnline.Dominio.Cursos
+namespace CursoOnline.Dominio.PublicosAlvo
 {
     public enum EPublicoAlvo
     {

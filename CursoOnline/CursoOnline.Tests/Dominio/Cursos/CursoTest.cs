@@ -7,6 +7,7 @@ using CursoOnline.Tests.Dominio.Builders;
 using Bogus;
 using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.Base;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Tests.Dominio.Cursos
 {

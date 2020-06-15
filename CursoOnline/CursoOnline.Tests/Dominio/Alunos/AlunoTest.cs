@@ -1,12 +1,12 @@
 using Xunit;
 using Bogus;
-using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.Base;
 using ExpectedObjects;
 using CursoOnline.Tests.Dominio.Builders;
 using CursoOnline.Tests.Dominio.Util;
 using CursoOnline.Dominio.Alunos;
 using Bogus.Extensions.Brazil;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Tests.Dominio.Alunos
 {

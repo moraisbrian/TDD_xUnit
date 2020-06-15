@@ -6,6 +6,7 @@ using CursoOnline.Dominio.Base;
 using Bogus.Extensions.Brazil;
 using CursoOnline.Tests.Dominio.Builders;
 using CursoOnline.Tests.Dominio.Util;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Tests.Dominio.Alunos
 {
@@ -14,6 +15,7 @@ namespace CursoOnline.Tests.Dominio.Alunos
         private readonly AlunoDto _alunoDto;
         private readonly ArmazenadorDeAluno _armazenadorDeAluno;
         private readonly Mock<IAlunoRepositorio> _alunoRepositorio;
+        private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
         private readonly Faker _faker;
 
         public ArmazenadorDeAlunoTest()
@@ -29,7 +31,8 @@ namespace CursoOnline.Tests.Dominio.Alunos
             };
 
             _alunoRepositorio = new Mock<IAlunoRepositorio>();
-            _armazenadorDeAluno = new ArmazenadorDeAluno(_alunoRepositorio.Object);
+            _conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
+            _armazenadorDeAluno = new ArmazenadorDeAluno(_alunoRepositorio.Object, _conversorDePublicoAlvo.Object);
         }
 
         [Fact]
@@ -46,17 +49,18 @@ namespace CursoOnline.Tests.Dominio.Alunos
             );
         }
 
-        [Fact]
-        public void NaoDeveInformarPublicoAlvoInvalido()
-        {
-            string publicoAlvoInvalido = "Médico";
-            _alunoDto.PublicoAlvo = publicoAlvoInvalido;
+        // O teste passou a ser feito no ConversorDePublicoAlvoTest
+        //[Fact]
+        //public void NaoDeveInformarPublicoAlvoInvalido()
+        //{
+        //    string publicoAlvoInvalido = "Médico";
+        //    _alunoDto.PublicoAlvo = publicoAlvoInvalido;
 
-            Assert.Throws<ExcecaoDeDominio>(() => 
-                _armazenadorDeAluno.Cadastrar(_alunoDto)
-            )
-            .ComMensagem(Resource.PublicoAlvoInvalido);
-        }
+        //    Assert.Throws<ExcecaoDeDominio>(() => 
+        //        _armazenadorDeAluno.Cadastrar(_alunoDto)
+        //    )
+        //    .ComMensagem(Resource.PublicoAlvoInvalido);
+        //}
 
         [Fact]
         public void DeveAlterarNomeDoAluno()

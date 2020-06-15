@@ -5,6 +5,7 @@ using CursoOnline.Dados.Repositorios;
 using CursoOnline.Dominio.Cursos;
 using Microsoft.EntityFrameworkCore;
 using CursoOnline.Dominio.Alunos;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Ioc
 {
@@ -19,6 +20,7 @@ namespace CursoOnline.Ioc
             services.AddScoped(typeof(ICursoRepositorio), typeof(CursoRepositorio));
             services.AddScoped(typeof(IAlunoRepositorio), typeof(AlunoRepositorio));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped(typeof(IConversorDePublicoAlvo), typeof(ConversorDePublicoAlvo));
             services.AddScoped<ArmazenadorDeCurso>();
             services.AddScoped<ArmazenadorDeAluno>();
         }

@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using CursoOnline.Dominio.Base;
-using CursoOnline.Dominio.Cursos;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Dominio.Alunos
 {

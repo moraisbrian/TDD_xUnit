@@ -5,6 +5,7 @@ using CursoOnline.Dominio.Cursos;
 using CursoOnline.Tests.Dominio.Util;
 using CursoOnline.Tests.Dominio.Builders;
 using CursoOnline.Dominio.Base;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Tests.Dominio.Cursos
 {
@@ -13,6 +14,7 @@ namespace CursoOnline.Tests.Dominio.Cursos
         private readonly CursoDto _cursoDto;
         private readonly ArmazenadorDeCurso _armazenadorDeCurso;
         private readonly Mock<ICursoRepositorio> _cursoRepositorio;
+        private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
         private readonly Faker _faker;
 
         public ArmazenadorDeCursoTest()
@@ -29,7 +31,8 @@ namespace CursoOnline.Tests.Dominio.Cursos
             };
 
             _cursoRepositorio = new Mock<ICursoRepositorio>();
-            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositorio.Object);
+            _conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
+            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositorio.Object, _conversorDePublicoAlvo.Object);
         }
 
         [Fact]
@@ -49,17 +52,18 @@ namespace CursoOnline.Tests.Dominio.Cursos
             ));
         }
 
-        [Fact]
-        public void NaoDeveInformarPublicoAlvoInvalido()
-        {
-            string publicoAlvoInvalido = "Médico";
-            _cursoDto.PublicoAlvo = publicoAlvoInvalido;
+        // O teste passou a ser feito no ConversorDePublicoAlvoTest
+        //[Fact]
+        //public void NaoDeveInformarPublicoAlvoInvalido()
+        //{
+        //    string publicoAlvoInvalido = "Médico";
+        //    _cursoDto.PublicoAlvo = publicoAlvoInvalido;
 
-            Assert.Throws<ExcecaoDeDominio>(() => 
-                _armazenadorDeCurso.Cadastrar(_cursoDto)
-            )
-            .ComMensagem(Resource.PublicoAlvoInvalido);
-        }
+        //    Assert.Throws<ExcecaoDeDominio>(() => 
+        //        _armazenadorDeCurso.Cadastrar(_cursoDto)
+        //    )
+        //    .ComMensagem(Resource.PublicoAlvoInvalido);
+        //}
 
         [Fact]
         public void NaoDeveAdicionarCursoComMesmoNomeDeOutroJaSalvo()
