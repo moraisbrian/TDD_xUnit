@@ -4,7 +4,7 @@ using CursoOnline.Dominio.Cursos;
 
 namespace CursoOnline.Dominio.Matriculas
 {
-    public class Matricula
+    public class Matricula : Entidade
     {
         public Matricula(Aluno aluno, Curso curso, double valorPago)
         {
@@ -20,11 +20,24 @@ namespace CursoOnline.Dominio.Matriculas
             Curso = curso;
             ValorPago = valorPago;
             TemDesconto = valorPago < curso.Valor;
+
         }
 
         public Aluno Aluno { get; private set; }
         public Curso Curso { get; private set; }
         public double ValorPago { get; private set; }
         public bool TemDesconto { get; private set; }
+        public double NotaDoAluno { get; private set; }
+        public bool CursoConcluido { get; private set; }
+
+        public void InformarNota(double nota)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(nota < 0 || nota > 10, Resource.NotaInvalida)
+                .DispararExcecaoSeExistir();
+
+            NotaDoAluno = nota;
+            CursoConcluido = true;
+        }
     }
 }

@@ -28,5 +28,7 @@
         // CriacaoDaMatricula
         public static readonly string CursoNaoEncontrado = "Curso não encontrado";
         public static readonly string AlunoNaoEncontrado = "Aluno não encontrado";
+        public static readonly string NotaInvalida = "Nota inválida";
+        public static readonly string MatriculaNaoEncontrada = "Matricula não encontrada";
     }
 }

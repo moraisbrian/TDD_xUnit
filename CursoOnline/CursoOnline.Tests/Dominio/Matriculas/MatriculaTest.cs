@@ -95,5 +95,40 @@ namespace CursoOnline.Tests.Dominio.Matriculas
                 MatriculaBuilder.Novo().ComAluno(aluno).ComCurso(curso).Build())
             .ComMensagem(Resource.PublicosAlvoDiferente);
         }
+
+        [Fact]
+        public void DeveInformarANotaDoAlunoParaMatricula()
+        {
+            const double notaDoAlunoEsperada = 9.5;
+            var matricula = MatriculaBuilder.Novo().Build();
+
+            matricula.InformarNota(notaDoAlunoEsperada);
+
+            Assert.Equal(notaDoAlunoEsperada, matricula.NotaDoAluno);
+        }
+
+        [Fact]
+        public void DeveIndicarQueCursoFoiConcluido()
+        {
+            const double notaDoAlunoEsperada = 9.5;
+            var matricula = MatriculaBuilder.Novo().Build();
+
+            matricula.InformarNota(notaDoAlunoEsperada);
+
+            Assert.True(matricula.CursoConcluido);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(11)]
+        [InlineData(10.1)]
+        public void NaoDeveInformarANotaDoAlunoInvalidaParaMatricula(double notaInvalida)
+        {
+            var matricula = MatriculaBuilder.Novo().Build();
+
+            Assert.Throws<ExcecaoDeDominio>(() =>
+                matricula.InformarNota(notaInvalida))
+            .ComMensagem(Resource.NotaInvalida);
+        }
     }
 }

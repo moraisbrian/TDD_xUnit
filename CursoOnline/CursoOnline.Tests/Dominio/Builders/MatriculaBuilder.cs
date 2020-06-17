@@ -1,12 +1,13 @@
 using CursoOnline.Dominio.Alunos;
 using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.Matriculas;
+using System;
 
 namespace CursoOnline.Tests.Dominio.Builders
 {
     public class MatriculaBuilder
     {
-        //private int Id;
+        private int Id;
         private Aluno Aluno;
         private Curso Curso;
         private double ValorPago;
@@ -41,21 +42,21 @@ namespace CursoOnline.Tests.Dominio.Builders
             return this;
         }
 
-        //public MatriculaBuilder ComId(int id)
-        //{
-        //    Id = id;
-        //    return this;
-        //}
+        public MatriculaBuilder ComId(int id)
+        {
+            Id = id;
+            return this;
+        }
 
         public Matricula Build()
         {
             var matricula = new Matricula(Aluno, Curso, ValorPago);
 
-            //if (Id > 0)
-            //{
-            //    var propertyInfo = matricula.GetType().GetProperty("Id");
-            //    propertyInfo.SetValue(matricula, Convert.ChangeType(Id, propertyInfo.PropertyType), null);
-            //}
+            if (Id > 0)
+            {
+                var propertyInfo = matricula.GetType().GetProperty("Id");
+                propertyInfo.SetValue(matricula, Convert.ChangeType(Id, propertyInfo.PropertyType), null);
+            }
 
             return matricula;
         }
