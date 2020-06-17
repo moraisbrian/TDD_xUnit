@@ -30,5 +30,7 @@
         public static readonly string AlunoNaoEncontrado = "Aluno não encontrado";
         public static readonly string NotaInvalida = "Nota inválida";
         public static readonly string MatriculaNaoEncontrada = "Matricula não encontrada";
+        public static readonly string MatriculaCancelada = "Matricula cancelada";
+        public static readonly string MatriculaConcluida = "Matricula concluída";
     }
 }

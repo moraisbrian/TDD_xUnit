@@ -11,6 +11,8 @@ namespace CursoOnline.Tests.Dominio.Builders
         private Aluno Aluno;
         private Curso Curso;
         private double ValorPago;
+        private bool Cancelada;
+        private bool Concluido;
 
         public static MatriculaBuilder Novo()
         {
@@ -42,6 +44,18 @@ namespace CursoOnline.Tests.Dominio.Builders
             return this;
         }
 
+        public MatriculaBuilder ComCancelada()
+        {
+            Cancelada = true;
+            return this;
+        }
+
+        public MatriculaBuilder ComConcluido()
+        {
+            Concluido = true;
+            return this;
+        }
+
         public MatriculaBuilder ComId(int id)
         {
             Id = id;
@@ -57,6 +71,12 @@ namespace CursoOnline.Tests.Dominio.Builders
                 var propertyInfo = matricula.GetType().GetProperty("Id");
                 propertyInfo.SetValue(matricula, Convert.ChangeType(Id, propertyInfo.PropertyType), null);
             }
+
+            if (Cancelada)
+                matricula.Cancelar();
+
+            if (Concluido)
+                matricula.InformarNota(7);
 
             return matricula;
         }

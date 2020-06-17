@@ -115,7 +115,7 @@ namespace CursoOnline.Tests.Dominio.Matriculas
 
             matricula.InformarNota(notaDoAlunoEsperada);
 
-            Assert.True(matricula.CursoConcluido);
+            Assert.True(matricula.MatriculaConcluida);
         }
 
         [Theory]
@@ -129,6 +129,37 @@ namespace CursoOnline.Tests.Dominio.Matriculas
             Assert.Throws<ExcecaoDeDominio>(() =>
                 matricula.InformarNota(notaInvalida))
             .ComMensagem(Resource.NotaInvalida);
+        }
+
+        [Fact]
+        public void DeveCancelarMatricula()
+        {
+            var matricula = MatriculaBuilder.Novo().Build();
+
+            matricula.Cancelar();
+
+            Assert.True(matricula.Cancelada);
+        }
+
+        [Fact]
+        public void NaoDeveInformarNotaQuandoMatriculaEstiverCancelada()
+        {
+            const double notaDoAluno = 6;
+            var matricula = MatriculaBuilder.Novo().ComCancelada().Build();
+
+            Assert.Throws<ExcecaoDeDominio>(() =>
+                matricula.InformarNota(notaDoAluno))
+            .ComMensagem(Resource.MatriculaCancelada);
+        }
+
+        [Fact]
+        public void NaoDeveCancelarQuandoMatriculaEstiverConcluida()
+        {
+            var matricula = MatriculaBuilder.Novo().ComConcluido().Build();
+
+            Assert.Throws<ExcecaoDeDominio>(() =>
+                matricula.Cancelar())
+            .ComMensagem(Resource.MatriculaConcluida);
         }
     }
 }
