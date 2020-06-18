@@ -1,0 +1,12 @@
+{
+  "name": "CursoOnline",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "testCafe": "./node_modules/.bin/testcafe chrome e2e"
+  },
+  "devDependencies": {
+    "testcafe": "^1.8.6"
+  }
+}
